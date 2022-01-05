@@ -1,4 +1,7 @@
 # 🚀 Booster
+
+![NodeJs](https://img.shields.io/badge/Powered%20By-Kotlin-535bf4?style=for-the-badge)    ![LINES OF CODE](https://img.shields.io/tokei/lines/github/MinecraftKotlin/Booster?style=for-the-badge) ![LICENSE](https://img.shields.io/github/license/MinecraftKotlin/Booster?style=for-the-badge)
+
 The networking implementation for MCK
 
 This repository contains some of the basic implementation code for the Booster networking system how-ever it does not contain code for the packets or packet processors because they include too much internal game code that is not yet able to be published
