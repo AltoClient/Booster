@@ -1,8 +1,17 @@
 package com.jacobtread.mck.booster
 
+import com.jacobtread.mck.chat.Text
+import com.jacobtread.mck.chat.TextSerializer
+import com.jacobtread.mck.chat.types.LiteralText
+import com.jacobtread.mck.utils.nbt.NBTStreamUtils
+import com.jacobtread.mck.utils.nbt.NBTSizeTracker
+import com.jacobtread.mck.utils.nbt.types.NBTCompound
 import io.netty.buffer.ByteBuf
+import io.netty.buffer.ByteBufInputStream
+import io.netty.buffer.ByteBufOutputStream
 import io.netty.handler.codec.DecoderException
 import io.netty.handler.codec.EncoderException
+import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.util.*
 
@@ -105,4 +114,29 @@ fun getVarIntSize(input: Int): Int {
         value++
     }
     return 5
+}
+
+fun ByteBuf.readTextSafe(): Text = readText() ?: LiteralText("")
+fun ByteBuf.readText(maxLength: Int = DEFAULT_MAX_LENGTH): Text? = TextSerializer.deserialize(readString(maxLength))
+fun ByteBuf.writeText(text: Text) =
+    writeString(TextSerializer.serialize(text))
+
+fun ByteBuf.writeNBTTag(nbt: NBTCompound?) {
+    if (nbt == null) {
+        writeByte(0)
+        return
+    }
+    try {
+        ByteBufOutputStream(this).use { NBTStreamUtils.write(nbt, it) }
+    } catch (e: IOException) {
+        throw EncoderException(e)
+    }
+}
+
+fun ByteBuf.readNBTTag(): NBTCompound {
+    val index = readerIndex()
+    val data = readByte()
+    if (data == ZERO_BYTE) return NBTCompound()
+    readerIndex(index)
+    ByteBufInputStream(this).use { return NBTStreamUtils.read(it, NBTSizeTracker(2097152L)) }
 }

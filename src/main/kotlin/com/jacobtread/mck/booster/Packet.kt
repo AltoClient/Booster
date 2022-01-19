@@ -1,5 +1,6 @@
 package com.jacobtread.mck.booster
 
+import com.jacobtread.mck.booster.processor.PacketProcessor
 import io.netty.buffer.ByteBuf
 
 interface Packet<P : PacketProcessor> {

@@ -1,5 +1,7 @@
-package com.jacobtread.mck.booster
+package com.jacobtread.mck.booster.processor
 
+import com.jacobtread.mck.booster.Packet
+import com.jacobtread.mck.booster.ThreadQuickExitException
 import com.jacobtread.mck.chat.Text
 import com.jacobtread.mck.utils.thread.SingleThreadQueuedExecutor
 
