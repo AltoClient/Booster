@@ -12,9 +12,9 @@ interface PacketProcessor {
     fun <V : PacketProcessor> ensureMainThread(threadListener: SingleThreadQueuedExecutor, packet: Packet<V>) {
         if (!threadListener.isOnThread) {
             @Suppress("UNCHECKED_CAST") val processor: V = this@PacketProcessor as V
-            threadListener.submit {
+            threadListener.run(Runnable {
                 packet.process(processor)
-            }
+            })
             throw ThreadQuickExitException()
         }
     }

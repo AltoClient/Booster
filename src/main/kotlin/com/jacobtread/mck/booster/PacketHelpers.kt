@@ -5,8 +5,8 @@ import com.jacobtread.mck.chat.TextSerializer
 import com.jacobtread.mck.chat.types.LiteralText
 import com.jacobtread.mck.utils.math.BlockPos
 import com.jacobtread.mck.utils.math.BlockPos.Companion.toBlockPos
-import com.jacobtread.mck.utils.nbt.NBTStreamUtils
 import com.jacobtread.mck.utils.nbt.NBTSizeTracker
+import com.jacobtread.mck.utils.nbt.NBTStreamUtils
 import com.jacobtread.mck.utils.nbt.types.NBTCompound
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.ByteBufInputStream
