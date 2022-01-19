@@ -1,12 +1,12 @@
-package me.jacobtread.mck.booster.encoding
+package com.jacobtread.mck.booster.encoding
 
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.ByteToMessageDecoder
 import io.netty.handler.codec.DecoderException
-import me.jacobtread.mck.booster.Constants
-import me.jacobtread.mck.booster.PacketMapper
-import me.jacobtread.mck.booster.readVarInt
+import com.jacobtread.mck.booster.Constants
+import com.jacobtread.mck.booster.PacketMapper
+import com.jacobtread.mck.booster.readVarInt
 
 class BoostDecoder(val direction: Int, val packetMapper: PacketMapper) : ByteToMessageDecoder() {
     override fun decode(ctx: ChannelHandlerContext, input: ByteBuf, out: MutableList<Any>) {

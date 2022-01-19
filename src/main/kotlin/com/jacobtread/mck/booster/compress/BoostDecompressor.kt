@@ -1,11 +1,11 @@
-package me.jacobtread.mck.booster.compress
+package com.jacobtread.mck.booster.compress
 
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.Unpooled
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.ByteToMessageDecoder
 import io.netty.handler.codec.DecoderException
-import me.jacobtread.mck.booster.readVarInt
+import com.jacobtread.mck.booster.readVarInt
 import java.util.zip.Inflater
 
 class BoostDecompressor(var threshold: Int) : ByteToMessageDecoder() {

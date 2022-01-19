@@ -1,9 +1,9 @@
-package me.jacobtread.mck.booster.compress
+package com.jacobtread.mck.booster.compress
 
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.MessageToByteEncoder
-import me.jacobtread.mck.booster.writeVarInt
+import com.jacobtread.mck.booster.writeVarInt
 import java.util.zip.Deflater
 
 class BoostCompressor(var threshold: Int) : MessageToByteEncoder<ByteBuf>() {

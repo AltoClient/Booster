@@ -1,4 +1,4 @@
-package me.jacobtread.mck.booster
+package com.jacobtread.mck.booster
 
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger

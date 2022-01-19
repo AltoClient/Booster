@@ -1,4 +1,4 @@
-package me.jacobtread.mck.booster
+package com.jacobtread.mck.booster
 
 enum class ProtocolState(val id: Int) {
     HANDSHAKING(-1),

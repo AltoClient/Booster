@@ -1,4 +1,4 @@
-package me.jacobtread.mck.booster
+package com.jacobtread.mck.booster
 
 import io.netty.buffer.ByteBuf
 import io.netty.handler.codec.DecoderException

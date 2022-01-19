@@ -1,7 +1,7 @@
-package me.jacobtread.mck.booster
+package com.jacobtread.mck.booster
 
-import me.jacobtread.mck.chat.Text
-import me.jacobtread.mck.utils.thread.SingleThreadQueuedExecutor
+import com.jacobtread.mck.chat.Text
+import com.jacobtread.mck.utils.thread.SingleThreadQueuedExecutor
 
 interface PacketProcessor {
 

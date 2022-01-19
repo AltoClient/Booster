@@ -1,10 +1,11 @@
-package me.jacobtread.mck.booster.encoding
+package com.jacobtread.mck.booster.encoding
 
+import com.jacobtread.mck.booster.*
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.DecoderException
 import io.netty.handler.codec.MessageToByteEncoder
-import me.jacobtread.mck.booster.*
+import com.jacobtread.mck.booster.*
 
 class BoostEncoder(val direction: Int, val packetMapper: PacketMapper) : MessageToByteEncoder<Packet<*>>() {
 

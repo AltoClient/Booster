@@ -1,4 +1,4 @@
-package me.jacobtread.mck.booster.data
+package com.jacobtread.mck.booster.data
 
 import java.net.IDN
 import java.util.*

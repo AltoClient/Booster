@@ -1,11 +1,11 @@
-package me.jacobtread.mck.booster.encoding
+package com.jacobtread.mck.booster.encoding
 
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.EncoderException
 import io.netty.handler.codec.MessageToByteEncoder
-import me.jacobtread.mck.booster.getVarIntSize
-import me.jacobtread.mck.booster.writeVarInt
+import com.jacobtread.mck.booster.getVarIntSize
+import com.jacobtread.mck.booster.writeVarInt
 
 class BoostJoiner : MessageToByteEncoder<ByteBuf>() {
     override fun encode(ctx: ChannelHandlerContext, msg: ByteBuf, out: ByteBuf) {
