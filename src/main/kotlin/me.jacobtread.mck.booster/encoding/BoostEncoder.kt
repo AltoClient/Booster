@@ -5,7 +5,6 @@ import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.DecoderException
 import io.netty.handler.codec.MessageToByteEncoder
 import me.jacobtread.mck.booster.*
-import net.minecraft.client.Minecraft
 
 class BoostEncoder(val direction: Int, val packetMapper: PacketMapper) : MessageToByteEncoder<Packet<*>>() {
 
@@ -18,7 +17,7 @@ class BoostEncoder(val direction: Int, val packetMapper: PacketMapper) : Message
         try {
             out.writePacket(serializer, msg)
         } catch (e: Throwable) {
-            Minecraft.LOGGER.error(e)
+            e.printStackTrace()
         }
     }
 
@@ -26,4 +25,5 @@ class BoostEncoder(val direction: Int, val packetMapper: PacketMapper) : Message
         @Suppress("UNCHECKED_CAST")
         return packetEncoder.write(this, packet as V)
     }
+
 }

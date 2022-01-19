@@ -13,16 +13,16 @@ class BoostDecompressor(var threshold: Int) : ByteToMessageDecoder() {
 
     override fun decode(ctx: ChannelHandlerContext, input: ByteBuf, out: MutableList<Any>) {
         if (input.readableBytes() != 0) {
-            val size = input.readVarInt()
-            if (size == 0) {
+            val i = input.readVarInt()
+            if (i == 0) {
                 out.add(input.readBytes(input.readableBytes()))
             } else {
-                if (size < threshold) throw DecoderException("Badly compressed packet - size of $size is below server threshold of $threshold")
-                if (size > 2097152) throw DecoderException("Badly compressed packet - size of $size is larger than protocol maximum of 2097152")
+                if (i < threshold) throw DecoderException("Badly compressed packet - size of $i is below server threshold of $threshold")
+                if (i > 2097152) throw DecoderException("Badly compressed packet - size of $i is larger than protocol maximum of 2097152")
                 val data = ByteArray(input.readableBytes())
                 input.readBytes(data)
                 inflater.setInput(data)
-                val deflatedData = ByteArray(size)
+                val deflatedData = ByteArray(i)
                 inflater.inflate(deflatedData)
                 out.add(Unpooled.wrappedBuffer(deflatedData))
                 inflater.reset()
