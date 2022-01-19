@@ -10,4 +10,5 @@ dependencies {
     implementation("it.unimi.dsi:fastutil:8.5.6")
     implementation("io.netty:netty-all:4.1.72.Final")
     implementation("com.mojang:authlib:2.3.31")
+    implementation("org.joml:joml:1.10.3")
 }

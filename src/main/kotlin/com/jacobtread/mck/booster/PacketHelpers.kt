@@ -3,6 +3,8 @@ package com.jacobtread.mck.booster
 import com.jacobtread.mck.chat.Text
 import com.jacobtread.mck.chat.TextSerializer
 import com.jacobtread.mck.chat.types.LiteralText
+import com.jacobtread.mck.utils.math.BlockPos
+import com.jacobtread.mck.utils.math.BlockPos.Companion.toBlockPos
 import com.jacobtread.mck.utils.nbt.NBTStreamUtils
 import com.jacobtread.mck.utils.nbt.NBTSizeTracker
 import com.jacobtread.mck.utils.nbt.types.NBTCompound
@@ -140,3 +142,6 @@ fun ByteBuf.readNBTTag(): NBTCompound {
     readerIndex(index)
     ByteBufInputStream(this).use { return NBTStreamUtils.read(it, NBTSizeTracker(2097152L)) }
 }
+
+fun ByteBuf.readBlockPos(): BlockPos = readLong().toBlockPos()
+fun ByteBuf.writeBlockPos(blockPos: BlockPos): ByteBuf? = writeLong(blockPos.asLong())
