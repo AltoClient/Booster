@@ -1,7 +1,8 @@
 package com.jacobtread.mck.booster
 
-import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger
+
+
+import com.jacobtread.mck.logger.Logger
 import java.io.IOException
 import java.net.*
 
@@ -94,6 +95,6 @@ class LanServerDetector {
     }
 
     companion object {
-        val LOGGER: Logger = LogManager.getLogger()
+        val LOGGER: Logger = Logger.get()
     }
 }

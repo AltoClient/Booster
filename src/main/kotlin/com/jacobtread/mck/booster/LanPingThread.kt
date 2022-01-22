@@ -1,6 +1,7 @@
 package com.jacobtread.mck.booster
 
-import org.apache.logging.log4j.LogManager
+
+import com.jacobtread.mck.logger.Logger
 import java.io.IOException
 import java.net.DatagramPacket
 import java.net.DatagramSocket
@@ -25,7 +26,7 @@ class LanPingThread(val motd: String, val address: String) : Thread("LanPingThre
                 val packet = DatagramPacket(responseBytes, responseBytes.size, address, 4445)
                 socket.send(packet)
             } catch (e: IOException) {
-                LOGGER.warn(e)
+                LOGGER.warn("Failed to send datagram", e)
                 break
             }
             try {
@@ -41,7 +42,7 @@ class LanPingThread(val motd: String, val address: String) : Thread("LanPingThre
     }
 
     companion object {
-        private val LOGGER = LogManager.getLogger()
+        private val LOGGER = Logger.get()
         private val THREAD_ID = AtomicInteger(0)
 
         fun getPingResponse(motd: String, address: String): String {
