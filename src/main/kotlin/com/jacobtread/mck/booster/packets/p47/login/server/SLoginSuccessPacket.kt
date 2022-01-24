@@ -1,8 +1,8 @@
 package com.jacobtread.mck.booster.packets.p47.login.server
 
+import com.jacobtread.mck.authlib.GameProfile
 import com.jacobtread.mck.booster.*
 import com.jacobtread.mck.booster.processor.p47.login.ClientLoginProcessor
-import com.mojang.authlib.GameProfile
 import io.netty.buffer.ByteBuf
 import java.util.*
 
@@ -21,7 +21,7 @@ data class SLoginSuccessPacket(val profile: GameProfile) : Packet<ClientLoginPro
 
         override fun write(buf: ByteBuf, packet: SLoginSuccessPacket) {
             buf.writeString(packet.profile.id?.toString() ?: "")
-            buf.writeString(packet.profile.name)
+            buf.writeString(packet.profile.name ?: "")
         }
     }
 }

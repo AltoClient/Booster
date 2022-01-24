@@ -1,10 +1,10 @@
 package com.jacobtread.mck.booster.data
 
 import com.google.gson.*
+import com.jacobtread.mck.authlib.GameProfile
 import com.jacobtread.mck.chat.Text
 import com.jacobtread.mck.utils.json.expectInt
 import com.jacobtread.mck.utils.json.expectString
-import com.mojang.authlib.GameProfile
 import java.lang.reflect.Type
 import java.util.*
 
