@@ -188,7 +188,7 @@ class Booster : SimpleChannelInboundHandler<Packet<*>>() {
         channel.flush()
     }
 
-    fun dispatchPacket(packet: Packet<*>, callback: Runnable?) {
+    private fun dispatchPacket(packet: Packet<*>, callback: Runnable?) {
         if (packet.state != protocolState) {
             channel.config().isAutoRead = false
         }
