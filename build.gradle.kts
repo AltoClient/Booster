@@ -1,5 +1,5 @@
 
-group = "com.jacobtread.mck.booster"
+group = "com.jacobtread.alto.booster"
 version = "1.0.0"
 
 dependencies {
