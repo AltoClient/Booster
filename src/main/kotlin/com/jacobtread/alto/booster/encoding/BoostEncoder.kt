@@ -5,7 +5,6 @@ import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.DecoderException
 import io.netty.handler.codec.MessageToByteEncoder
-import com.jacobtread.alto.booster.*
 
 class BoostEncoder(val direction: Int, val packetMapper: PacketMapper) : MessageToByteEncoder<Packet<*>>() {
 
