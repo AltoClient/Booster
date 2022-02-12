@@ -3,6 +3,7 @@ package com.jacobtread.alto.booster
 import com.jacobtread.alto.chat.Text
 import com.jacobtread.alto.chat.TextSerializer
 import com.jacobtread.alto.chat.types.LiteralText
+import com.jacobtread.alto.utils.ZERO_BYTE
 import com.jacobtread.alto.utils.math.BlockPos
 import com.jacobtread.alto.utils.math.BlockPos.Companion.toBlockPos
 import com.jacobtread.alto.utils.nbt.NBTSizeTracker
@@ -17,7 +18,6 @@ import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.util.*
 
-const val ZERO_BYTE: Byte = 0
 const val ZERO_SHORT: Short = 0
 const val DEFAULT_MAX_LENGTH = 32767
 

@@ -16,7 +16,7 @@ class LanServerDetector {
         @Synchronized get
         @Synchronized set
 
-    fun addLanServer(pingResponse: String, address: InetAddress) {
+    private fun addLanServer(pingResponse: String, address: InetAddress) {
         val motd = LanPingThread.getMotdFromPingResponse(pingResponse)
         var addr = LanPingThread.getAddrFromPingResponse(pingResponse)
         if (addr != null) {
@@ -37,9 +37,9 @@ class LanServerDetector {
         }
     }
 
-    var lanFindThread: Thread? = null
+    private var lanFindThread: Thread? = null
 
-    fun createFindThread() = Thread {
+    private fun createFindThread() = Thread {
         val socket = MulticastSocket(4445).apply {
             soTimeout = 500
             joinGroup(broadcastAddress, networkInterface)

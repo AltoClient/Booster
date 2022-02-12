@@ -41,21 +41,15 @@ class Booster : SimpleChannelInboundHandler<Packet<*>>() {
         const val CLIENT_PACKETS = 0
 
         private val NIO_EVENT_LOOP: NioEventLoopGroup by lazy {
-            NioEventLoopGroup(
-                0, ThreadFactoryBuilder().setNameFormat("Netty Client IO #%d").setDaemon(true).build()
-            )
+            NioEventLoopGroup(0, ThreadFactoryBuilder().setNameFormat("Netty Client IO #%d").setDaemon(true).build())
         }
 
         private val EPOLL_EVENT_LOOP: EpollEventLoopGroup by lazy {
-            EpollEventLoopGroup(
-                0, ThreadFactoryBuilder().setNameFormat("Netty Epoll Client IO #%d").setDaemon(true).build()
-            )
+            EpollEventLoopGroup(0, ThreadFactoryBuilder().setNameFormat("Netty Epoll Client IO #%d").setDaemon(true).build())
         }
 
         private val LOCAL_EVENT_LOOP: DefaultEventLoopGroup by lazy {
-            DefaultEventLoopGroup(
-                0, ThreadFactoryBuilder().setNameFormat("Netty Local Client IO #%d").setDaemon(true).build()
-            )
+            DefaultEventLoopGroup(0, ThreadFactoryBuilder().setNameFormat("Netty Local Client IO #%d").setDaemon(true).build())
         }
 
         fun createAndConnect(
@@ -104,7 +98,7 @@ class Booster : SimpleChannelInboundHandler<Packet<*>>() {
     lateinit var processor: PacketProcessor
 
     var isEncrypted = false
-    var isDisconnected = false
+    private var isDisconnected = false
 
     var protocolState: ProtocolState
         get() = channel.attr(Constants.PROTOCOL_STATE_KEY).get() ?: ProtocolState.HANDSHAKING
@@ -116,7 +110,7 @@ class Booster : SimpleChannelInboundHandler<Packet<*>>() {
     val isLocal get() = channel is LocalChannel || channel is LocalServerChannel
     val isChannelOpen get() = this::channel.isInitialized && channel.isOpen
 
-    val outboundQueue = ConcurrentLinkedQueue<PacketQueueItem>()
+    private val outboundQueue = ConcurrentLinkedQueue<PacketQueueItem>()
     val lock = ReentrantReadWriteLock()
 
     val hasNoChannel get() = !this::channel.isInitialized
@@ -144,7 +138,7 @@ class Booster : SimpleChannelInboundHandler<Packet<*>>() {
         processPacket(msg)
     }
 
-    fun <P : PacketProcessor> processPacket(msg: Packet<P>) {
+    private fun <P : PacketProcessor> processPacket(msg: Packet<P>) {
         try {
             @Suppress("UNCHECKED_CAST") msg.process(processor as P)
         } catch (_: ThreadQuickExitException) {
@@ -167,7 +161,7 @@ class Booster : SimpleChannelInboundHandler<Packet<*>>() {
         }
     }
 
-    fun flushOutboundQueue() {
+    private fun flushOutboundQueue() {
         lock.read {
             while (outboundQueue.isNotEmpty()) {
                 val item = outboundQueue.poll()
@@ -223,12 +217,8 @@ class Booster : SimpleChannelInboundHandler<Packet<*>>() {
     fun enableEncryption(key: SecretKey) {
         isEncrypted = true
         with(channel.pipeline()) {
-            addBefore(
-                "splitter", "decrypt", NettyEncryptingDecoder(Crypt.createNetCipher(2, key))
-            )
-            addBefore(
-                "prepender", "encrypt", NettyEncryptingEncoder(Crypt.createNetCipher(1, key))
-            )
+            addBefore("splitter", "decrypt", NettyEncryptingDecoder(Crypt.createNetCipher(2, key)))
+            addBefore("prepender", "encrypt", NettyEncryptingEncoder(Crypt.createNetCipher(1, key)))
         }
     }
 
@@ -237,14 +227,10 @@ class Booster : SimpleChannelInboundHandler<Packet<*>>() {
             if (threshold >= 0) {
                 val decompress = get("decompress")
                 if (decompress is BoostDecompressor) decompress.threshold = threshold
-                else addBefore(
-                    "decoder", "decompress", BoostDecompressor(threshold)
-                )
+                else addBefore("decoder", "decompress", BoostDecompressor(threshold))
                 val compress = get("compress")
                 if (compress is BoostCompressor) compress.threshold = threshold
-                else addBefore(
-                    "encoder", "compress", BoostCompressor(threshold)
-                )
+                else addBefore("encoder", "compress", BoostCompressor(threshold))
             } else {
                 val decompress = get("decompress")
                 if (decompress is BoostDecompressor) remove("decompress")
